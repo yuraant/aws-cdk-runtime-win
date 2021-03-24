@@ -16,5 +16,11 @@ jobs:
       - name: Get tag
         id: tag
         uses: dawidd6/action-get-tag@v1
-      - name: Build the Docker image
+      - name: Docker Build
         run: docker build . --file Dockerfile --tag yabramkin/aws-cdk-runtime-environment-win:${{steps.tag.outputs.tag}}
+      - name: Docker Tag
+        run: docker tag yabramkin/aws-cdk-runtime-environment-win:${{steps.tag.outputs.tag}}  yabramkin/aws-cdk-runtime-environment-win:latest
+      - name: Docker push version
+        run: docker push yabramkin/aws-cdk-runtime-environment-win:${{steps.tag.outputs.tag}}
+      - name: Docker push and update latest
+        run: docker push yabramkin/aws-cdk-runtime-environment-win:latest
