@@ -12,14 +12,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: checkout repo
+    - name: Build the Docker image
       uses: actions/checkout@v2
-    - name: Docker Login
-      uses: docker/login-action@v1.8.0
-      with:
-        username: ${{ secrets.DockerHubUser }}
-        password: ${{ secrets.DockerHubPass }}
-    - name: Build and push Docker images
-      uses: docker/build-push-action@v2.3.0
-      with:
-        tags: yabramkin/aws-cdk-runtime-environment-win:${GITHUB_REF##*/}
+      run: docker build . --file Dockerfile --tag yabramkin/aws-cdk-runtime-environment-win:${GITHUB_REF##*/}
