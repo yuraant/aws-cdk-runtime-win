@@ -6,12 +6,11 @@ on:
        - '*'
 
 jobs:
-
   build:
 
     runs-on: windows-latest
 
     steps:
-    - name: Build the Docker image
-      uses: actions/checkout@v2
-      run: docker build . --file Dockerfile --tag yabramkin/aws-cdk-runtime-environment-win:${GITHUB_REF##*/}
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag yabramkin/aws-cdk-runtime-environment-win:${GITHUB_REF##*/}
