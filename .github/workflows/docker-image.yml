@@ -19,7 +19,7 @@ jobs:
       - name: Login to DockerHub Registry
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
       - name: Docker Build
-        run: docker build . --file Dockerfile --tag yabramkin/aws-cdk-runtime-environment-win:${{steps.tag.outputs.tag}}
+        run: docker build . --cache-from yabramkin/aws-cdk-runtime-environment-win:latest --file Dockerfile --tag yabramkin/aws-cdk-runtime-environment-win:${{steps.tag.outputs.tag}}
       - name: Docker Tag
         run: docker tag yabramkin/aws-cdk-runtime-environment-win:${{steps.tag.outputs.tag}}  yabramkin/aws-cdk-runtime-environment-win:latest
       - name: Docker push version
