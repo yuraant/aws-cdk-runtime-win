@@ -18,7 +18,7 @@ RUN $ProgressPreference = 'SilentlyContinue'; `
 
 # Install dotnet 3+
 RUN Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -outFile 'dotnet-install.ps1'; `
-    .\dotnet-install.ps1 -Version ${DOTNET_SDK_VERSION}; `
+    .\dotnet-install.ps1 -Version "$DOTNET_SDK_VERSION"; `
     rm dotnet-install.ps1
 
 
@@ -28,19 +28,19 @@ RUN Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force; `
     Install-Module -name AWSPowerShell.NetCore -RequiredVersion 4.1.9.0 -Force
 
 ## Install NodeJS
-RUN choco install nodejs-lts -y --version ${NODEJS_VERSION} --no-progress
+RUN choco install nodejs-lts -y --version $NODEJS_VERSION --no-progress
 
 ## Install Powershell Core
-RUN choco install powershell-core --yes --version ${PS_CORE_VERSION} --no-progress
+RUN choco install powershell-core --yes --version $PS_CORE_VERSION --no-progress
 
 ## Install octo
-RUN choco install octopustools -y --version ${OCTO_TOOL_VERSION} --no-progress
+RUN choco install octopustools -y --version $OCTO_TOOL_VERSION --no-progress
 
 ## Install Octopus Client
-RUN Install-Package Octopus.Client -source https://www.nuget.org/api/v2 -SkipDependencies -Force -RequiredVersion ${OCTO_CLIENT_VERSION}
+RUN Install-Package Octopus.Client -source https://www.nuget.org/api/v2 -SkipDependencies -Force -RequiredVersion $OCTO_CLIENT_VERSION
 
 ## Install aws-cdk
-RUN npm install -g aws-cdk@${AWS_CDK_VERSION}
+RUN npm install -g aws-cdk@$AWS_CDK_VERSION
 
 ## Update path for new tools
 ADD .\scripts\update_path.cmd C:\update_path.cmd
