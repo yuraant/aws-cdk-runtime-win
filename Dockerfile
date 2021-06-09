@@ -18,7 +18,7 @@ RUN $ProgressPreference = 'SilentlyContinue'; `
 
 # Install dotnet 3+
 RUN Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -outFile 'dotnet-install.ps1'; `
-    .\dotnet-install.ps1 -Version "$DOTNET_SDK_VERSION"; `
+    .\dotnet-install.ps1 -Version $DOTNET_SDK_VERSION ; `
     rm dotnet-install.ps1
 
 
