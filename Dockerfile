@@ -21,7 +21,7 @@ RUN Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force; `
     Install-Module -name AWSPowerShell.NetCore -RequiredVersion 4.1.9.0 -Force
 
 ## Install NodeJS
-RUN choco install nodejs-lts -y --version 16.3.0 --no-progress
+RUN choco install nodejs -y --version 16.3.0 --no-progress
 
 ## Install Powershell Core
 RUN choco install powershell-core --yes --version 7.1.3 --no-progress
