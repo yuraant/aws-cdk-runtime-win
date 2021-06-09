@@ -33,7 +33,7 @@ RUN choco install octopustools -y --version 7.4.3145 --no-progress
 RUN Install-Package Octopus.Client -source https://www.nuget.org/api/v2 -SkipDependencies -Force -RequiredVersion 11.1.2
 
 ## Install aws-cdk
-RUN npm install -g aws-cdk@1.108.1
+RUN npm install -g aws-cdk@1.108.0
 
 ## Update path for new tools
 ADD .\scripts\update_path.cmd C:\update_path.cmd
