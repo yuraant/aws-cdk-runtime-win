@@ -42,3 +42,8 @@ RUN npm install -g aws-cdk@1.108.0
 ## Update path for new tools
 ADD .\scripts\update_path.cmd C:\update_path.cmd
 RUN .\update_path.cmd;
+
+RUN $gateway = (Get-NetRoute | Where { $_.DestinationPrefix -eq '0.0.0.0/0' } | Sort-Object RouteMetric | Select NextHop).NextHop; `
+    $ifIndex = (Get-NetAdapter -InterfaceDescription "Hyper-V Virtual Ethernet*" | Sort-Object | Select ifIndex).ifIndex; `
+    New-NetRoute -DestinationPrefix 169.254.170.2/32 -InterfaceIndex $ifIndex -NextHop $gateway; `
+    New-NetRoute -DestinationPrefix 169.254.169.254/32 -InterfaceIndex $ifIndex -NextHop $gateway
