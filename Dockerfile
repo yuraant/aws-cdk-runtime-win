@@ -3,6 +3,14 @@
 FROM mcr.microsoft.com/windows/servercore:ltsc2019
 SHELL ["powershell", "-Command"]
 
+ARG Aws_Powershell_Version=4.1.9.0
+ARG Node_Version=16.3.0
+ARG Aws_Cli_Version=2.0.60
+ARG Powershell_Version=7.1.3
+ARG Octopus_Cli_Version=7.4.3145
+ARG Octopus_Client_Version=11.1.2
+ARG Aws_Cdk_Version=1.108.0
+
 # Install Choco
 RUN $ProgressPreference = 'SilentlyContinue'; `
     Set-ExecutionPolicy Bypass -Scope Process -Force; `
@@ -19,31 +27,26 @@ RUN Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -outFile 'dotnet-i
 ## Install AWS PowerShell module
 ## https://docs.aws.amazon.com/powershell/latest/userguide/pstools-getting-set-up-windows.html#ps-installing-awspowershellnetcore
 RUN Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force; `
-    Install-Module -name AWSPowerShell.NetCore -RequiredVersion 4.1.9.0 -Force
+    Install-Module -name AWSPowerShell.NetCore -RequiredVersion $Env:Aws_Powershell_Version -Force
 
 ## Install NodeJS
-RUN choco install nodejs -y --version 16.3.0 --no-progress
+RUN choco install nodejs -y --version $Env:Node_Version --no-progress
 
 # Install the AWS CLI
-RUN choco install awscli -y --version 2.0.60 --no-progress
+RUN choco install awscli -y --version $Env:Aws_Cli_Version --no-progress
 
 ## Install Powershell Core
-RUN choco install powershell-core --yes --version 7.1.3 --no-progress
+RUN choco install powershell-core --yes --version $Env:Powershell_Version --no-progress
 
 ## Install octo
-RUN choco install octopustools -y --version 7.4.3145 --no-progress
+RUN choco install octopustools -y --version $Env:Octopus_Cli_Version --no-progress
 
 ## Install Octopus Client
-RUN Install-Package Octopus.Client -source https://www.nuget.org/api/v2 -SkipDependencies -Force -RequiredVersion 11.1.2
+RUN Install-Package Octopus.Client -source https://www.nuget.org/api/v2 -SkipDependencies -Force -RequiredVersion $Env:Octopus_Client_Version
 
 ## Install aws-cdk
-RUN npm install -g aws-cdk@1.108.0
+RUN npm install -g aws-cdk@$Env:Aws_Cdk_Version
 
 ## Update path for new tools
 ADD .\scripts\update_path.cmd C:\update_path.cmd
 RUN .\update_path.cmd;
-
-RUN $gateway = (Get-NetRoute | Where { $_.DestinationPrefix -eq '0.0.0.0/0' } | Sort-Object RouteMetric | Select NextHop).NextHop; `
-    $ifIndex = (Get-NetAdapter -InterfaceDescription "Hyper-V Virtual Ethernet*" | Sort-Object | Select ifIndex).ifIndex; `
-    New-NetRoute -DestinationPrefix 169.254.170.2/32 -InterfaceIndex $ifIndex -NextHop $gateway; `
-    New-NetRoute -DestinationPrefix 169.254.169.254/32 -InterfaceIndex $ifIndex -NextHop $gateway
