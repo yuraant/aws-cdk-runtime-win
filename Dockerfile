@@ -4,7 +4,8 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 SHELL ["powershell", "-Command"]
 
 ARG Aws_Powershell_Version=4.1.9.0
-ARG Node_Version=16.3.0
+ARG Node_Version=16.4.0
+ARG Npm_Version=7.19.0
 ARG Aws_Cli_Version=2.0.60
 ARG Powershell_Version=7.1.3
 ARG Octopus_Cli_Version=7.4.3145
@@ -31,6 +32,9 @@ RUN Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force; `
 
 ## Install NodeJS
 RUN choco install nodejs -y --version $Env:Node_Version --no-progress
+
+## Update npm
+RUN npm install -g npm@$Env:Npm_Version
 
 # Install the AWS CLI
 RUN choco install awscli -y --version $Env:Aws_Cli_Version --no-progress
