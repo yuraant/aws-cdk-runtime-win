@@ -4,6 +4,7 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 SHELL ["powershell", "-Command"]
 
 ARG Aws_Powershell_Version=4.1.9.0
+ARG PS_SqlServer_Module_Version=21.1.18245
 ARG Node_Version=16.4.0
 ARG Npm_Version=7.19.0
 ARG Aws_Cli_Version=2.0.60
@@ -26,9 +27,11 @@ RUN Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -outFile 'dotnet-i
 
 
 ## Install AWS PowerShell module
+## Install PowerShell SqlServer module
 ## https://docs.aws.amazon.com/powershell/latest/userguide/pstools-getting-set-up-windows.html#ps-installing-awspowershellnetcore
 RUN Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force; `
-    Install-Module -name AWSPowerShell.NetCore -RequiredVersion $Env:Aws_Powershell_Version -Force
+    Install-Module -name AWSPowerShell.NetCore -RequiredVersion $Env:Aws_Powershell_Version -Force; `
+    Install-Module -Name SqlServer -RequiredVersion $Env:PS_SqlServer_Module_Version -Force
 
 ## Install NodeJS
 RUN choco install nodejs -y --version $Env:Node_Version --no-progress
