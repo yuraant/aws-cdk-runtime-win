@@ -10,7 +10,7 @@ ARG Npm_Version=8.5.4
 ARG Powershell_Version=7.1.3
 ARG Octopus_Cli_Version=7.4.3145
 ARG Octopus_Client_Version=11.1.2
-ARG Aws_Cli_Version=2.4.27
+ARG Aws_Cli_Version=2.4.19
 ARG Aws_Cdk_Version=1.148.0
 
 # Install Choco
