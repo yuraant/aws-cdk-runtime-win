@@ -19,12 +19,11 @@ RUN $ProgressPreference = 'SilentlyContinue'; `
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; `
     iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-# Install dotnet 3.1+
+# Install dotnet 6.0+
 RUN Invoke-WebRequest 'https://dot.net/v1/dotnet-install.ps1' -outFile 'dotnet-install.ps1'; `
     [Environment]::SetEnvironmentVariable('DOTNET_CLI_TELEMETRY_OPTOUT', '1', 'Machine'); `
-    .\dotnet-install.ps1 -Channel '3.1'; `
+    .\dotnet-install.ps1 -Channel '6.0'; `
     rm dotnet-install.ps1
-
 
 ## Install AWS PowerShell module
 ## Install PowerShell SqlServer module
