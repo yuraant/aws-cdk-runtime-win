@@ -11,7 +11,7 @@ ARG Powershell_Version=7.1.3
 ARG Octopus_Cli_Version=7.4.3145
 ARG Octopus_Client_Version=11.1.2
 ARG Aws_Cli_Version=2.7.1
-ARG Aws_Cdk_Version=2.14.1
+ARG Aws_Cdk_Version=2.24.1
 
 # Install Choco
 RUN $ProgressPreference = 'SilentlyContinue'; `
