@@ -6,12 +6,12 @@ SHELL ["powershell", "-Command"]
 ARG Aws_Powershell_Version=4.1.149
 ARG PS_SqlServer_Module_Version=21.1.18245
 ARG Node_Version=18.7.0
-ARG Npm_Version=8.18.0
+ARG Npm_Version=8.19.2
 ARG Powershell_Version=7.2.6
 ARG Octopus_Cli_Version=7.4.3145
 ARG Octopus_Client_Version=11.1.2
 ARG Aws_Cli_Version=2.7.24
-ARG Aws_Cdk_Version=2.38.1
+ARG Aws_Cdk_Version=2.44.0
 
 # Install Choco
 RUN $ProgressPreference = 'SilentlyContinue'; `
