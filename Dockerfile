@@ -1,7 +1,7 @@
 # escape=`
 
-#FROM mcr.microsoft.com/windows/servercore:ltsc2019
-FROM mcr.microsoft.com/dotnet/sdk:7.0
+FROM mcr.microsoft.com/windows/servercore:ltsc2022
+#FROM mcr.microsoft.com/dotnet/sdk:7.0
 
 SHELL ["powershell", "-Command"]
 
