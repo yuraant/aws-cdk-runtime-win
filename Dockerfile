@@ -1,6 +1,8 @@
 # escape=`
 
-FROM mcr.microsoft.com/windows/servercore:ltsc2019
+#FROM mcr.microsoft.com/windows/servercore:ltsc2019
+FROM mcr.microsoft.com/dotnet/sdk:7.0
+
 SHELL ["powershell", "-Command"]
 
 ARG Aws_Powershell_Version=4.1.149
