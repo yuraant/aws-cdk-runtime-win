@@ -1,6 +1,7 @@
 # escape=`
 
-FROM mcr.microsoft.com/windows/servercore:ltsc2019
+FROM mcr.microsoft.com/dotnet/framework/runtime:4.8-windowsservercore-ltsc2019
+#FROM mcr.microsoft.com/windows/servercore:ltsc2019
 #FROM mcr.microsoft.com/dotnet/sdk:7.0
 
 SHELL ["powershell", "-Command"]
@@ -14,6 +15,7 @@ ARG Octopus_Cli_Version=7.4.3145
 ARG Octopus_Client_Version=11.1.2
 ARG Aws_Cli_Version=2.7.24
 ARG Aws_Cdk_Version=2.85.0
+
 
 # Install Choco
 RUN $ProgressPreference = 'SilentlyContinue'; `
